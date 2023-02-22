@@ -16,7 +16,7 @@ const Mapper = (props) => {
         <div>
             {props.chars.map(char => {
                 // console.log(char);
-                return <CharCard char={char} />
+                return <CharCard char={char} key={char.name} />
             })}
         </div>
     )
