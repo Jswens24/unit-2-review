@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import './CharCard.css'
 import axios from 'axios';
+import FilmCard from './FilmCard';
 
-const CharCard = ({ char }) => {
-    const [filmInfo, setFilmInfo] = useState([]);
+const CharCard = ({ char, addNewFavorite }) => {
+    const [films, setFilms] = useState([]);
 
-    const fetchFilmInfo = () => {
-        let filmInfoResults = []
-        char.films.forEach(async fimUrl => {
-            console.log(char.name, fimUrl);
-            let filmRes = await axios.get(fimUrl)
-            filmInfoResults.push(filmRes)
-            setFilmInfo()
-            console.log(filmInfo);
-        })
-    };
+    const addNewFilm = (filmObj) => {
+        setFilms([...films, filmObj])
+    }
 
-    useEffect(() => {
-        fetchFilmInfo()
-    }, [])
+    console.log(films);
 
     // const { char } = props;
-    console.log(char.name, filmInfo);
+    // console.log(char.name, filmInfo);
     return (
         <div className='char-card-container'>
             <p>{char.name}</p>
+            <div>
+                <h3>Movies in which this character appears:</h3>
+                {char.films.map(filmUrl => {
+                    return <FilmCard addNewFilm={addNewFilm} filmUrl={filmUrl} />
+                })}
+                <button onClick={() => addNewFavorite(char)}>Add to favorites</button>
+            </div>
         </div>
     )
 }
