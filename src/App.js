@@ -22,15 +22,23 @@ function App() {
   }, [])
 
   const addNewFavorite = (charObj) => {
+    const index = chars.findIndex(char => charObj.name === char.name)
+    charObj.index = index
     setFavorites([...favorites, charObj])
+
+    chars.splice(index, 1)
+    setChars([...chars])
   }
 
+
   const removeFromFavorites = (name) => {
-    const index = favorites.findIndex(fav => fav.name === name)
+    const index = favorites.findIndex(fav => fav.name === name);
+    chars.splice(favorites[index].index, 0, favorites[index])
 
     favorites.splice(index, 1)
 
     setFavorites([...favorites])
+    setChars([...chars])
   }
 
   // useEffect(fetchChars, [])
