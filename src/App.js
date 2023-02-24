@@ -2,6 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Mapper from './Mapper';
+import Favorites from './Favorites';
 
 function App() {
   const [chars, setChars] = useState([]);
@@ -24,6 +25,14 @@ function App() {
     setFavorites([...favorites, charObj])
   }
 
+  const removeFromFavorites = (name) => {
+    const index = favorites.findIndex(fav => fav.name === name)
+
+    favorites.splice(index, 1)
+
+    setFavorites([...favorites])
+  }
+
   // useEffect(fetchChars, [])
 
   console.log((favorites));
@@ -31,6 +40,7 @@ function App() {
   return (
     <div className="App">
       <Mapper addNewFavorite={addNewFavorite} chars={chars} />
+      <Favorites favorites={favorites} removeFromFavorites={removeFromFavorites} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import './CharCard.css'
 import axios from 'axios';
 import FilmCard from './FilmCard';
 
-const CharCard = ({ char, addNewFavorite }) => {
+const CharCard = ({ char, addNewFavorite, removeFromFavorites }) => {
     const [films, setFilms] = useState([]);
 
     const addNewFilm = (filmObj) => {
@@ -22,9 +22,13 @@ const CharCard = ({ char, addNewFavorite }) => {
                 {char.films.map(filmUrl => {
                     return <FilmCard addNewFilm={addNewFilm} filmUrl={filmUrl} />
                 })}
-                <button onClick={() => addNewFavorite(char)}>Add to favorites</button>
+                {addNewFavorite ? (
+                    <button onClick={() => addNewFavorite(char)}>Add to favorites</button>
+                ) : (
+                    < button onClick={() => removeFromFavorites(char.name)} > Remove</button>
+                )}
             </div>
-        </div>
+        </div >
     )
 }
 
